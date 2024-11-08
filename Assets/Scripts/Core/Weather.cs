@@ -1,6 +1,8 @@
 using System;
 
 namespace Core {
+    // List of the data we want to get from the api. variable names are case-sensitive so do not rename
+    
     [Serializable]
     public struct Main {
         public float temp;
