@@ -53,8 +53,8 @@ namespace Core {
     [Serializable]
     public struct Sys {
         public string country;
-        public string sunrise;
-        public string sunset;
+        public int sunrise;
+        public int sunset;
     }
     
     [Serializable]
@@ -65,7 +65,7 @@ namespace Core {
         public Wind wind;
         public Rain rain;
         public Clouds clouds;
-        public string dt;
+        public int dt;
         public Sys sys;
     }
 }
