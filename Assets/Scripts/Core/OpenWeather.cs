@@ -3,10 +3,12 @@ using System.Collections;
 using System.Net;
 using System.Text;
 using Core;
+using Environment;
 using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.PlayerLoop;
 using UnityEngine.Windows;
 
 public class OpenWeather : MonoBehaviour {
@@ -27,6 +29,9 @@ public class OpenWeather : MonoBehaviour {
     [HideInInspector] public string responseText; // JSON response from API in text
 
     [SerializeField] public WeatherResponse currentWeather;
+
+    [Header("Environment Manager References")] [SerializeField]
+    private Sun _sunManager;
     
     private void Start() {
         GetWeatherFromAPI();
@@ -60,6 +65,9 @@ public class OpenWeather : MonoBehaviour {
             currentWeather.sys.sunrise = GetDaySecondsFromUnixTime(currentWeather.sys.sunrise);
             currentWeather.sys.sunset = GetDaySecondsFromUnixTime(currentWeather.sys.sunset);
             currentWeather.dt = GetDaySecondsFromUnixTime(currentWeather.dt);
+            
+            _sunManager.UpdateSunPosition(currentWeather.sys.sunrise, currentWeather.sys.sunset, 
+                currentWeather.dt);
         }
         else {
             Debug.Log("OpenWeather API Error: " + request.error);
