@@ -1,4 +1,5 @@
 using Core;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 namespace Environment {
@@ -12,7 +13,9 @@ namespace Environment {
 
             float timeNormalized = timeSinceSunrise / dayDur;
 
-            float angle = timeNormalized * 360f;
+            Debug.Log("Normalised Time: " + timeNormalized);
+
+            float angle = timeNormalized * 180f;
             float radians = angle * Mathf.Deg2Rad;
 
             float altitudeRadius = radians * 0.5f;

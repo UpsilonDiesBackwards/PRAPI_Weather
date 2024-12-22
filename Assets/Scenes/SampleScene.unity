@@ -185,9 +185,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enable: 1
   baseURL: https://api.openweathermap.org/data/2.5/weather?q=
-  _cityName: Champaign
-  _stateName: Illinois
-  _countryName: 
+  _cityName: Tokyo
+  _stateName: 
+  _countryName: Japan
   finalisedURL: 
   responseText: 
   currentWeather:
@@ -657,7 +657,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sun: {fileID: 998305708}
-  radius: 100
+  radius: 600
 --- !u!4 &1491499210
 Transform:
   m_ObjectHideFlags: 0
