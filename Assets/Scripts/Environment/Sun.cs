@@ -12,19 +12,16 @@ namespace Environment {
             float timeSinceSunrise = Mathf.Clamp(currentTime - sunrise, 0, dayDur);
 
             float timeNormalized = timeSinceSunrise / dayDur;
-
-            Debug.Log("Normalised Time: " + timeNormalized);
-
+            
             float angle = timeNormalized * 180f;
             float radians = angle * Mathf.Deg2Rad;
 
             float altitudeRadius = radians * 0.5f;
-            float tilt = 23.5f * Mathf.Deg2Rad;
-
+            
             Vector3 sunPosition;
             sunPosition.x = Mathf.Cos(radians) * radius;
             sunPosition.y = Mathf.Sin(radians) * radius;
-            sunPosition.z = Mathf.Cos(radians) * Mathf.Sin(tilt) * altitudeRadius;
+            sunPosition.z = Mathf.Cos(radians) * altitudeRadius;
 
             sun.position = sunPosition;
             
