@@ -62,6 +62,8 @@ public class PlaneController : MonoBehaviour
         // Move the plane forward
         rb.AddForce(transform.forward * speed, ForceMode.Force);
 
+        // TODO: MAKE LIFT BASED ON THE PLANES VELOCITY AND PITCH ANGLE
+        
         //Slow down plane
         if (Input.GetKey(KeyCode.S))
         {
