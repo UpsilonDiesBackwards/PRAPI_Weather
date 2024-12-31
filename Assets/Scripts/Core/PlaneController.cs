@@ -56,7 +56,6 @@ public class PlaneController : MonoBehaviour
 
             // Move the plane backward
             rb.AddForce(Vector3.back * speed);
-
         }
         // Apply rotation
         Quaternion rotation = Quaternion.Euler(pitch, yaw, roll);
