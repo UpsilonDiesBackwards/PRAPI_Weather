@@ -47,27 +47,26 @@ public class PlaneController : MonoBehaviour
         //     roll = 0; // Reset roll if no key is pressed
         // }
 
+        // Apply rotation
+        Quaternion rotation = Quaternion.Euler(pitch, yaw, roll);
+        transform.rotation = rotation;
+    }
+    
+    void FixedUpdate()
+    {
+        if (Input.GetKey(KeyCode.Space) && rb.velocity.magnitude > 0) {
+            // Apply lift
+            rb.AddForce(Vector3.up * lift, ForceMode.Force);
+        }
+        
         // Move the plane forward
-        rb.AddForce(Vector3.forward * speed);
+        rb.AddForce(transform.forward * speed, ForceMode.Force);
 
         //Slow down plane
         if (Input.GetKey(KeyCode.S))
         {
-
             // Move the plane backward
-            rb.AddForce(Vector3.back * speed);
-        }
-        // Apply rotation
-        Quaternion rotation = Quaternion.Euler(pitch, yaw, roll);
-        rb.MoveRotation(rotation);
-
-        void FixedUpdate()
-        {
-            // Apply lift
-            if (rb.velocity.magnitude > 0)
-            {
-                rb.AddForce(Vector3.up * lift);
-            }
+            rb.AddForce(-transform.forward * speed, ForceMode.Force);
         }
     }
 }
