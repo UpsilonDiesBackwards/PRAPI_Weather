@@ -7,6 +7,9 @@ using UnityEngine;
 using UnityEngine.Networking;
 using TMPro;  // Add this to use TextMesh Pro InputField
 
+using UnityEngine;
+using Environment;  // Add this to use TextMesh Pro InputField
+
 public class OpenWeather : MonoBehaviour
 {
     [SerializeField] private bool enable;
@@ -36,6 +39,9 @@ public class OpenWeather : MonoBehaviour
     //Stop next scene loading with invalid location
     public bool validLocations = false;
 
+    [Header("Environment Manager References")]
+    [SerializeField]
+    private Sun _sunManager;
 
     private void Start()
     {
