@@ -153,6 +153,9 @@ public class OpenWeather : MonoBehaviour
             currentWeather.sys.sunrise = GetDaySecondsFromUnixTime(currentWeather.sys.sunrise);
             currentWeather.sys.sunset = GetDaySecondsFromUnixTime(currentWeather.sys.sunset);
             currentWeather.dt = GetDaySecondsFromUnixTime(currentWeather.dt);
+            
+            _sunManager.UpdateSunPosition(currentWeather.sys.sunrise, currentWeather.sys.sunset, 
+                currentWeather.dt);
         }
         else
         {
