@@ -33,7 +33,8 @@ public class CheckPoints : MonoBehaviour
     {
         if(curCheckPoint >= chechPointsInLevel)
         {
-           nextLevelScreen.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            nextLevelScreen.SetActive(true);
         }
     }
 
