@@ -13,7 +13,11 @@ public class PlaneController : MonoBehaviour
     private float pitch; // Pitch angle
     private float yaw;   // Yaw angle
     private float roll;  // Roll angle
-
+    
+    public GameObject propellerObject;
+    public GameObject[] propellerTransforms;
+    public float propellerRotationSpeed = 250f;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -21,6 +25,11 @@ public class PlaneController : MonoBehaviour
         rb.useGravity = false;
 
         Cursor.lockState = CursorLockMode.Locked;
+
+        
+        foreach (GameObject transform in propellerTransforms) {
+            Instantiate(propellerObject, transform.transform);
+        }
     }
 
     void Update()
@@ -42,14 +51,16 @@ public class PlaneController : MonoBehaviour
         {
             roll -= rollSpeed * Time.deltaTime; // Roll right
         }
-        // else
-        // {
-        //     roll = 0; // Reset roll if no key is pressed
-        // }
 
         // Apply rotation
         Quaternion rotation = Quaternion.Euler(pitch, yaw, roll);
         transform.rotation = rotation;
+
+        // Apply propeller rotations
+        foreach (GameObject p in propellerTransforms) {
+            p.transform.Rotate(0, 0, Time.deltaTime * 
+                                     (propellerRotationSpeed * (rb.velocity.magnitude * 0.4f)));
+        }
     }
     
     void FixedUpdate()
