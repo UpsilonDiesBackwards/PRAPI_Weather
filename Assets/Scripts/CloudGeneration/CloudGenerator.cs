@@ -44,7 +44,6 @@ public class Cloud : MonoBehaviour
             OpenWeather.Instance.currentWeather.weather[0].main.ToUpper() == "OVERCAST CLOUDS"
            ) {
 
-            //Temp function 2
             for (int x = -(sizeModX * cloudRadius); x <= sizeModX * cloudRadius; x++) {
                 for (int y = CUTOFF; y <= cloudRadius; y++) {
                     for (int z = -(sizeModZ * cloudRadius); z <= sizeModZ * cloudRadius; z++) {
@@ -89,7 +88,7 @@ public class Cloud : MonoBehaviour
         }
     }
 
-    private void CreateSubClouds(GameObject startObj, int decayValue) //Loops through all neighbouring positions and generates sub clouds
+    private void CreateSubClouds(GameObject startObj, int decayValue) //Loops through all neighbouring positions and generates sub clouds; legacy code that is no longer used
     {
         int newDecay;
         bool isOverlapping = false;
