@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.FullSerializer;
@@ -5,16 +6,20 @@ using UnityEngine;
 
 public class PlaneController : MonoBehaviour
 {
-    [Header("Movement")]
+    private Rigidbody rb;
+
+    
+    [Header("Properties")]
     public float speed = 20f;
     public float lift = 5f;
     public float turnSpeed = 50f;
     public float rollSpeed = 50f;
-    private Rigidbody rb;
 
     private float pitch; // Pitch angle
     private float yaw;   // Yaw angle
     private float roll;  // Roll angle
+
+    public bool hasCrashed = false;
     
     [Header("Propellers")]
     public GameObject propellerObject;
@@ -44,6 +49,8 @@ public class PlaneController : MonoBehaviour
         }
 
         initialForward = Vector3.forward;
+        
+        hasCrashed = false;
     }
 
     void Update()
@@ -117,5 +124,11 @@ public class PlaneController : MonoBehaviour
         
         // Move the plane forward
         rb.AddForce(transform.forward * speed, ForceMode.Force);
+    }
+
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.tag == "Terrain") {
+            hasCrashed = true;
+        }
     }
 }

@@ -26,10 +26,15 @@ public class UIData : MonoBehaviour
         state.text = OpenWeather.Instance.stateName;
         country.text = OpenWeather.Instance.countryName;
 
-        overview.text = OpenWeather.Instance.currentWeather.weather[0].main;
-        temperature.text = OpenWeather.Instance.currentWeather.main.temp.ToString();
-
-
+        if (OpenWeather.Instance.currentWeather.weather != null && OpenWeather.Instance.currentWeather.weather.Length > 0) {
+            
+            overview.text = OpenWeather.Instance.currentWeather.weather[0].main;
+            temperature.text = OpenWeather.Instance.currentWeather.main.temp.ToString() + "C";
+        } else {
+            overview.text = "";
+            temperature.text = "";
+        }
+        
         numOfCheckPointsInLevel = checkPoints.checkPoints.Length;
     }
 

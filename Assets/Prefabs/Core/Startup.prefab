@@ -46,11 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enable: 1
   baseURL: https://api.openweathermap.org/data/2.5/weather?q=
-  _cityName: 
-  _stateName: 
-  _countryName: 
+  cityName: 
+  stateName: 
+  countryName: 
   finalisedURL: 
   responseText: 
+  apiErrorString: 
   currentWeather:
     main:
       temp: 0
@@ -76,12 +77,112 @@ MonoBehaviour:
       country: 
       sunrise: 0
       sunset: 0
-  cityInputField: {fileID: 0}
-  stateInputField: {fileID: 0}
-  countryInputField: {fileID: 0}
-  errorMessage: {fileID: 0}
-  validLocations: 0
-  _sunManager: {fileID: 0}
+  sunManager: {fileID: 0}
+  locations:
+  - New York
+  - London
+  - Tokyo
+  - Paris
+  - Sydney
+  - Los Angeles
+  - Chicago
+  - Toronto
+  - Beijing
+  - Berlin
+  - Rio de Janeiro
+  - Mexico City
+  - Cairo
+  - Dubai
+  - Moscow
+  - Mumbai
+  - Delhi
+  - Istanbul
+  - Bangkok
+  - Seoul
+  - Hong Kong
+  - Singapore
+  - Barcelona
+  - Rome
+  - Vienna
+  - Madrid
+  - Buenos Aires
+  - Cape Town
+  - Jakarta
+  - Lagos
+  - Shanghai
+  - Kuala Lumpur
+  - Lima
+  - Santiago
+  - Caracas
+  - Casablanca
+  - Kabul
+  - Tehran
+  - Baghdad
+  - Karachi
+  - Riyadh
+  - Doha
+  - Manila
+  - Hanoi
+  - Lisbon
+  - Dublin
+  - Edinburgh
+  - Prague
+  - Warsaw
+  - Budapest
+  - Oslo
+  - Stockholm
+  - Helsinki
+  - Copenhagen
+  - Reykjavik
+  - Athens
+  - Belgrade
+  - Zagreb
+  - Bratislava
+  - Ljubljana
+  - Vilnius
+  - Riga
+  - Tallinn
+  - Bucharest
+  - Sofia
+  - Brussels
+  - Amsterdam
+  - Luxembourg
+  - Zurich
+  - Geneva
+  - Monaco
+  - San Marino
+  - Valletta
+  - Andorra la Vella
+  - Yerevan
+  - Tbilisi
+  - Baku
+  - Tashkent
+  - Astana
+  - Ulaanbaatar
+  - Havana
+  - Kingston
+  - Port-au-Prince
+  - Panama City
+  - San Salvador
+  - Guatemala City
+  - Belmopan
+  - Managua
+  - Tegucigalpa
+  - San Jose
+  - Bogota
+  - Quito
+  - Asuncion
+  - Montevideo
+  - Brasilia
+  - Pretoria
+  - Nairobi
+  - Accra
+  - Addis Ababa
+  - Abuja
+  - Portsmouth
+  - Peoria
+  - Champaign
+  - Cardiff
 --- !u!1 &4130731448530491205
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +192,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2321871628419360298}
-  - component: {fileID: 1908671846183960859}
   m_Layer: 0
   m_Name: Startup
   m_TagString: Untagged
@@ -115,15 +215,3 @@ Transform:
   - {fileID: 2915796698112408809}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1908671846183960859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4130731448530491205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31789a11b3cfc2039a3db2de6ec7a060, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

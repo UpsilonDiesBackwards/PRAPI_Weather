@@ -35,6 +35,11 @@ public class MenuManager : MonoBehaviour {
             GotoMainMenu("StartScreen");
         }
 
+        if (planeController.hasCrashed) {
+            Cursor.lockState = CursorLockMode.None;
+            SceneManager.LoadScene("StartScreen");
+        }
+        
         stallWarning.SetActive(planeController.isStalling);
     }
 

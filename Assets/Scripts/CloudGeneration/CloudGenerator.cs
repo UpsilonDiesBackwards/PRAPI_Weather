@@ -35,51 +35,58 @@ public class Cloud : MonoBehaviour
         //    smolCloud.transform.SetParent(gameObject.transform);
         //    smolCloud.transform.position = gameObject.transform.position + spawnPos;
         //}
+
+        Debug.Log(OpenWeather.Instance.currentWeather.weather[0].description.ToUpper());
         
-        //Temp function 2
-        for (int x = -(sizeModX*cloudRadius); x <= sizeModX*cloudRadius; x++)
-        {
-            for (int y = CUTOFF; y <= cloudRadius; y++)
-            {
-                for (int z = -(sizeModZ*cloudRadius); z <= sizeModZ*cloudRadius; z++)
-                {
-                    if (Math.Sqrt((x * x)/sizeModX + (y * y) + (z * z)/sizeModZ) <= cloudRadius && !(x == 0 && y==0 && z == 0))
-                    {
-                        Vector3 spawnPos = new Vector3(x, y, z);
-                        GameObject smolCloud = Instantiate(subCloudPrefab, spawnPos, Quaternion.identity);
-                        smolCloud.name = "Outer Cloud";
-                        smolCloud.transform.SetParent(gameObject.transform);
-                        smolCloud.transform.position = gameObject.transform.position + spawnPos;
+        if (OpenWeather.Instance.currentWeather.weather[0].main.ToUpper() == "CLOUDS"           ||
+            OpenWeather.Instance.currentWeather.weather[0].main.ToUpper() == "SCATTERED CLOUDS" ||
+            OpenWeather.Instance.currentWeather.weather[0].main.ToUpper() == "BROKEN CLOUDS"    ||
+            OpenWeather.Instance.currentWeather.weather[0].main.ToUpper() == "OVERCAST CLOUDS"
+           ) {
+
+            //Temp function 2
+            for (int x = -(sizeModX * cloudRadius); x <= sizeModX * cloudRadius; x++) {
+                for (int y = CUTOFF; y <= cloudRadius; y++) {
+                    for (int z = -(sizeModZ * cloudRadius); z <= sizeModZ * cloudRadius; z++) {
+                        if (Math.Sqrt((x * x) / sizeModX + (y * y) + (z * z) / sizeModZ) <= cloudRadius &&
+                            !(x == 0 && y == 0 && z == 0)) {
+                            Vector3 spawnPos = new Vector3(x, y, z);
+                            GameObject smolCloud = Instantiate(subCloudPrefab, spawnPos, Quaternion.identity);
+                            smolCloud.name = "Outer Cloud";
+                            smolCloud.transform.SetParent(gameObject.transform);
+                            smolCloud.transform.position = gameObject.transform.position + spawnPos;
+                        }
                     }
                 }
             }
-        }
 
-        GameObject[] otherClouds = GameObject.FindGameObjectsWithTag("Cloud");
-        foreach (GameObject cloud in otherClouds)
-        {
-            Debug.Log(cloud.name);
-            if (cloud != null && cloud.name != "Cloud"){
-                CollisionHandler colHandler = cloud.GetComponent<CollisionHandler>();
-                //colHandler.CheckCollisions();
+            GameObject[] otherClouds = GameObject.FindGameObjectsWithTag("Cloud");
+
+            foreach (GameObject cloud in otherClouds) {
+                Debug.Log(cloud.name);
+
+                if (cloud != null && cloud.name != "Cloud") {
+                    CollisionHandler colHandler = cloud.GetComponent<CollisionHandler>();
+                    //colHandler.CheckCollisions();
+                }
             }
+
+            //Temp function 3
+            //for (int i = 0; i < cloudRadius; i++)
+            //{
+            //    foreach (var subCloud in subClouds)
+            //    {
+            //        //Debug.Log(subCloud);
+            //        //Debug.Log(cloudRadius-i);
+            //        if (subCloud.Value == (cloudRadius - i))
+            //        {
+            //            CreateSubClouds(subCloud.Key, subCloud.Value);
+            //        }
+            //    }
+            //}
+
+            Debug.Log("Cloud generated");
         }
-
-        //Temp function 3
-        //for (int i = 0; i < cloudRadius; i++)
-        //{
-        //    foreach (var subCloud in subClouds)
-        //    {
-        //        //Debug.Log(subCloud);
-        //        //Debug.Log(cloudRadius-i);
-        //        if (subCloud.Value == (cloudRadius - i))
-        //        {
-        //            CreateSubClouds(subCloud.Key, subCloud.Value);
-        //        }
-        //    }
-        //}
-
-        Debug.Log("Cloud generated");
     }
 
     private void CreateSubClouds(GameObject startObj, int decayValue) //Loops through all neighbouring positions and generates sub clouds

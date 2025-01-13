@@ -1086,6 +1086,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 425839474}
   m_CullTransparentMesh: 1
+--- !u!1 &508647845 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4130731448530491205, guid: 64a77dc87a653d40986b3a4c70351f09, type: 3}
+  m_PrefabInstance: {fileID: 5779137347522087952}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &508647846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508647845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c4d870d17c206f6db412a1503d06369, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &532838616
 GameObject:
   m_ObjectHideFlags: 0
@@ -1405,6 +1422,8 @@ MonoBehaviour:
   mainMenuScreen: {fileID: 1763867719}
   locationSelectionMenuScreen: {fileID: 1255029512}
   levelCompleteScreen: {fileID: 0}
+  stallWarning: {fileID: 0}
+  planeController: {fileID: 0}
   city: {fileID: 1078776055}
   state: {fileID: 425839476}
   country: {fileID: 1001936921}
@@ -4809,7 +4828,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4130731448530491205, guid: 64a77dc87a653d40986b3a4c70351f09, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 508647846}
   m_SourcePrefab: {fileID: 100100000, guid: 64a77dc87a653d40986b3a4c70351f09, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
