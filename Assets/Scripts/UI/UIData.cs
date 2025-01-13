@@ -9,35 +9,33 @@ public class UIData : MonoBehaviour
     public CheckPoints checkPoints;
     public TextMeshProUGUI checkPointCounter;
     public int numOfCheckPointsInLevel;
-
-    public OpenWeather openWeather;
-
+    
     //Location text objects
     public TextMeshProUGUI city;
     public TextMeshProUGUI state;
     public TextMeshProUGUI country;
 
+    // Weather text objects
+    public TextMeshProUGUI overview;
+    public TextMeshProUGUI temperature;
+    
     private void Start()
     {
-        // Find the OpenWeather script in the scene
-        openWeather = FindObjectOfType<OpenWeather>();
-
-        if (openWeather == null)
-        {
-            Debug.LogError("OpenWeather script not found in the scene!");
-        }
-
         //Display OpenWeather info
-        city.text = openWeather._cityName;
-        state.text = openWeather._stateName;
-        country.text = openWeather._countryName;
+        city.text = OpenWeather.Instance.cityName;
+        state.text = OpenWeather.Instance.stateName;
+        country.text = OpenWeather.Instance.countryName;
 
+        overview.text = OpenWeather.Instance.currentWeather.weather[0].main;
+        temperature.text = OpenWeather.Instance.currentWeather.main.temp.ToString();
+
+
+        numOfCheckPointsInLevel = checkPoints.checkPoints.Length;
     }
 
     private void Update()
     {
-        checkPointCounter.text = "CheckPoints:" + checkPoints.curCheckPoint.ToString() + "/" + numOfCheckPointsInLevel;
-
+        checkPointCounter.text = checkPoints.curCheckPoint.ToString() + "/" + numOfCheckPointsInLevel;
     }
 
 }

@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 
 public class PlaneController : MonoBehaviour
 {
+    [Header("Movement")]
     public float speed = 20f;
     public float lift = 5f;
     public float turnSpeed = 50f;
@@ -14,9 +16,20 @@ public class PlaneController : MonoBehaviour
     private float yaw;   // Yaw angle
     private float roll;  // Roll angle
     
+    [Header("Propellers")]
     public GameObject propellerObject;
     public GameObject[] propellerTransforms;
     public float propellerRotationSpeed = 250f;
+
+    [Header("Advanced Movement Stuff")] 
+    public bool isStalling = false;
+    public float threshold = 0.5f;
+    public float slowDownFactor = 0.5f;
+    public float stallSpeed;
+    
+    private Vector3 initialForward;
+
+    private float mouseX, mouseY;
     
     void Start()
     {
@@ -25,18 +38,19 @@ public class PlaneController : MonoBehaviour
         rb.useGravity = false;
 
         Cursor.lockState = CursorLockMode.Locked;
-
         
         foreach (GameObject transform in propellerTransforms) {
             Instantiate(propellerObject, transform.transform);
         }
+
+        initialForward = Vector3.forward;
     }
 
     void Update()
     {
         // Get mouse input for pitch and yaw
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        mouseX = Input.GetAxis("Mouse X");
+        mouseY = Input.GetAxis("Mouse Y");
 
         // Adjust pitch and yaw based on mouse movement
         yaw += mouseX * turnSpeed * Time.deltaTime;
@@ -61,25 +75,47 @@ public class PlaneController : MonoBehaviour
             p.transform.Rotate(0, 0, Time.deltaTime * 
                                      (propellerRotationSpeed * (rb.velocity.magnitude * 0.4f)));
         }
+        
+        // Draw debug rays for forward vectors
+        Debug.DrawRay(transform.position, transform.forward * 20f, Color.red);
+        Debug.DrawRay(transform.position, initialForward * 20f, Color.green);
     }
     
-    void FixedUpdate()
-    {
-        if (Input.GetKey(KeyCode.Space) && rb.velocity.magnitude > 0) {
-            // Apply lift
+    void FixedUpdate() {
+        // Calculate Dot Product
+        float dotProd = Vector3.Dot(initialForward, transform.forward);
+        if (dotProd <= threshold) { // Then enable gravity and lower velocity to act as "stalling"
+            rb.velocity = new Vector3(rb.velocity.x * slowDownFactor, rb.velocity.y, rb.velocity.z);
+
+            rb.useGravity = true;
+            rb.AddForce(Vector3.down * stallSpeed, ForceMode.Force);
+
+            isStalling = true;
+        } else { // Disable le gravity
+            rb.useGravity = false;
+            isStalling = false;
+        }
+
+        if (Input.GetKey(KeyCode.Q)) { // When the player presses `Q` and `E` ...
+            rb.AddForce(-transform.right * speed * 0.75f, ForceMode.Force); // ... The plane should have a lil force applied
+            rb.velocity *= 0.98f;
+            yaw += mouseX * turnSpeed * Time.deltaTime; 
+        } else if (Input.GetKey(KeyCode.E)) {
+            rb.AddForce(transform.right * speed * 0.75f, ForceMode.Force);
+            rb.velocity *= 0.98f;;
+            yaw += mouseX * turnSpeed * Time.deltaTime;
+        }
+        
+        if (Input.GetKey(KeyCode.Space) && rb.velocity.magnitude > 0) { // Apply lift
             rb.AddForce(Vector3.up * lift, ForceMode.Force);
+        }
+        
+        if (Input.GetKey(KeyCode.S)) //Slow down plane
+        {
+            rb.AddForce(-transform.forward * speed, ForceMode.Force);
         }
         
         // Move the plane forward
         rb.AddForce(transform.forward * speed, ForceMode.Force);
-
-        // TODO: MAKE LIFT BASED ON THE PLANES VELOCITY AND PITCH ANGLE
-        
-        //Slow down plane
-        if (Input.GetKey(KeyCode.S))
-        {
-            // Move the plane backward
-            rb.AddForce(-transform.forward * speed, ForceMode.Force);
-        }
     }
 }

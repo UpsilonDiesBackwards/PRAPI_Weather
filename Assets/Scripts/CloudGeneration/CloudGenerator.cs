@@ -35,7 +35,7 @@ public class Cloud : MonoBehaviour
         //    smolCloud.transform.SetParent(gameObject.transform);
         //    smolCloud.transform.position = gameObject.transform.position + spawnPos;
         //}
-
+        
         //Temp function 2
         for (int x = -(sizeModX*cloudRadius); x <= sizeModX*cloudRadius; x++)
         {

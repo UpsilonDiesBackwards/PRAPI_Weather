@@ -19,21 +19,21 @@ public class SceneController : MonoBehaviour
 
     }
 
-    public void LocationSeclect()
+    public void LocationSelect()
     {
         SceneManager.LoadSceneAsync("LocationSelection");
     }
 
     public void StartGame()
     {
-        if(openWeather.validLocations == true)
-        {
-            SceneManager.LoadSceneAsync("Level 1");
-        }
-        else
-        {
-            Debug.Log("No valid loactions chosen");
-        }
+        // if(openWeather.validLocations == true)
+        // {
+        //     SceneManager.LoadSceneAsync("Level 1");
+        // }
+        // else
+        // {
+        //     Debug.Log("No valid loactions chosen");
+        // }
     }
 
     public void Level2()

@@ -27,6 +27,8 @@ public class CheckPoints : MonoBehaviour
                 Debug.LogWarning($"GameObject {checkPoints[i].name} is missing an ID");
             }
         }
+
+        chechPointsInLevel = checkPoints.Length;
     }
 
     private void Update()
@@ -37,13 +39,12 @@ public class CheckPoints : MonoBehaviour
             nextLevelScreen.SetActive(true);
         }
     }
-
-
-    //Cleans up array list NOT WORKING CURRENTLY!!!
-    //public void RemoveCompetedCheckPoints()
-    //{
-    //    checkPoints = checkPoints.Where(i => i != null).ToArray();
-    //}
+    
+    // Cleans up array list NOT WORKING CURRENTLY!!!
+    public void RemoveCompetedCheckPoints()
+    {
+        checkPoints = checkPoints.Where(i => i != null).ToArray();
+    }
 
 
 }
