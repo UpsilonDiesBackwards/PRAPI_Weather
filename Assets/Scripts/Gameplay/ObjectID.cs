@@ -14,12 +14,12 @@ public class ObjectID : MonoBehaviour
             // Debug.Log($"Player has reached checkpoint {id}");
             ActivateCheckPoint();
             checkPoints.curCheckPoint++;
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 
     private void ActivateCheckPoint()
     {
-        Debug.Log($"CheckPoint {id} complete");
+        // Debug.Log($"CheckPoint {id} complete");
     }
 }

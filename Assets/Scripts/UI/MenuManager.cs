@@ -37,7 +37,8 @@ public class MenuManager : MonoBehaviour {
 
         if (planeController.hasCrashed) {
             Cursor.lockState = CursorLockMode.None;
-            SceneManager.LoadScene("StartScreen");
+            stallWarning.GetComponent<TextMeshProUGUI>().text = "YOU CRASHED";
+            GotoMainMenu("StartScreen");
         }
         
         stallWarning.SetActive(planeController.isStalling);
@@ -87,7 +88,7 @@ public class MenuManager : MonoBehaviour {
         Debug.LogAssertion("Game has been quit");
     }
 
-    void Start() {
+    void Awake() {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 

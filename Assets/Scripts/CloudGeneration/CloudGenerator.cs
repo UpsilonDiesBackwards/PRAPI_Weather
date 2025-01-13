@@ -35,8 +35,6 @@ public class Cloud : MonoBehaviour
         //    smolCloud.transform.SetParent(gameObject.transform);
         //    smolCloud.transform.position = gameObject.transform.position + spawnPos;
         //}
-
-        Debug.Log(OpenWeather.Instance.currentWeather.weather[0].description.ToUpper());
         
         if (OpenWeather.Instance.currentWeather.weather[0].main.ToUpper() == "CLOUDS"           ||
             OpenWeather.Instance.currentWeather.weather[0].main.ToUpper() == "SCATTERED CLOUDS" ||
@@ -63,7 +61,7 @@ public class Cloud : MonoBehaviour
             GameObject[] otherClouds = GameObject.FindGameObjectsWithTag("Cloud");
 
             foreach (GameObject cloud in otherClouds) {
-                Debug.Log(cloud.name);
+                // Debug.Log(cloud.name);
 
                 if (cloud != null && cloud.name != "Cloud") {
                     CollisionHandler colHandler = cloud.GetComponent<CollisionHandler>();

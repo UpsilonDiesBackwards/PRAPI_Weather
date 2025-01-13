@@ -7,6 +7,8 @@ using Core;
 using Environment;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
+
 public class OpenWeather : MonoBehaviour {
     private static OpenWeather instance;
     
@@ -31,6 +33,8 @@ public class OpenWeather : MonoBehaviour {
     [Header("Environment Manager References")]
     public Sun sunManager;
 
+    [SerializeField] private PlaneWeatherBehaviour _planeWeatherBehaviour;
+    
     public List<String> locations = new List<string>(new string[] {
         "New York", "London", "Tokyo", "Paris", "Sydney", 
         "Los Angeles", "Chicago", "Toronto", "Beijing", "Berlin", 
@@ -60,6 +64,14 @@ public class OpenWeather : MonoBehaviour {
             if (instance == null) instance = FindObjectOfType<OpenWeather>();
             return instance;
         }
+    }
+
+    private void Awake() {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        _planeWeatherBehaviour = FindObjectOfType<PlaneWeatherBehaviour>().GetComponent<PlaneWeatherBehaviour>();
     }
 
     public void GetWeatherFromAPI() {
@@ -92,6 +104,8 @@ public class OpenWeather : MonoBehaviour {
             currentWeather.sys.sunrise = GetDaySecondsFromUnixTime(currentWeather.sys.sunrise);
             currentWeather.sys.sunset = GetDaySecondsFromUnixTime(currentWeather.sys.sunset);
             currentWeather.dt = GetDaySecondsFromUnixTime(currentWeather.dt);
+
+            _planeWeatherBehaviour.UpdateData();
             
             sunManager.UpdateSunPosition(currentWeather.sys.sunrise, currentWeather.sys.sunset, 
                 currentWeather.dt);

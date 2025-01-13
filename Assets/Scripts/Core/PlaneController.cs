@@ -1,13 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting.FullSerializer;
+using UnityEditor;
 using UnityEngine;
 
 public class PlaneController : MonoBehaviour
 {
     private Rigidbody rb;
-
+    public MenuManager menuManager;
     
     [Header("Properties")]
     public float speed = 20f;
@@ -35,7 +37,12 @@ public class PlaneController : MonoBehaviour
     private Vector3 initialForward;
 
     private float mouseX, mouseY;
-    
+
+    private void Awake() {
+        menuManager = FindObjectOfType<MenuManager>();
+        menuManager.stallWarning.GetComponent<TextMeshProUGUI>().text = "!!! STALLING !!!";
+    }
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
