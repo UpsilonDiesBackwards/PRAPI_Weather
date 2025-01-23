@@ -1,13 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Net;
 using System.Text;
 using Core;
 using Environment;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class OpenWeather : MonoBehaviour {
     private static OpenWeather instance;
@@ -22,6 +22,9 @@ public class OpenWeather : MonoBehaviour {
     public string countryName = "";
     private const int APICALLLIMIT = 1; // How many times we want to call the API. DO NOT CHANGE
 
+    string devKeyPath = "Assets/config.json";
+    public bool usingDevKey = false;
+    
     private double dateTime;
 
     [HideInInspector] public string finalisedURL; // Combined API URL we will use
@@ -68,6 +71,8 @@ public class OpenWeather : MonoBehaviour {
 
     private void Awake() {
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        usingDevKey = File.Exists(devKeyPath);
     }
     
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
@@ -75,9 +80,16 @@ public class OpenWeather : MonoBehaviour {
     }
 
     public void GetWeatherFromAPI() {
-        // Read the API key from the config file
-        string json = System.IO.File.ReadAllText("Assets/config.json");
-        Config config = JsonUtility.FromJson<Config>(json);
+        Config config;
+
+        if (File.Exists(devKeyPath)) { // Check if the developer api key is found in path
+            string json = System.IO.File.ReadAllText(devKeyPath); // Read the API key from the config file
+            config = JsonUtility.FromJson<Config>(json);
+            Debug.LogWarning("Using developer API key from path: " + devKeyPath);
+        } else { // If not found then use the user API key.
+            config = JsonUtility.FromJson<Config>(Startup.Instance.API_KEY);
+            Debug.LogWarning("Using user-specified API key");
+        }
 
         // Build the final URL for the API request
         StringBuilder stringBuilder = new StringBuilder(baseURL, 256);
@@ -87,10 +99,10 @@ public class OpenWeather : MonoBehaviour {
         stringBuilder.Clear();
         
         if (enable) { // If enabled, send an API request
-            StartCoroutine(GetRequest(finalisedURL));
+            StartCoroutine(GetRequest(finalisedURL)); 
         } 
     }
-
+    
     IEnumerator GetRequest(string url) {
         UnityWebRequest request = UnityWebRequest.Get(url); // Send a request to the finalised URL
         yield return request.SendWebRequest();

@@ -1,19 +1,25 @@
 using System;
 using System.Collections;
+using Cinemachine;
 using Environment;
 using TMPro;
 using Unity.VisualScripting;
+using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class MenuManager : MonoBehaviour {
     [Header("Interface")]
     public GameObject mainMenuScreen;
     public GameObject locationSelectionMenuScreen;
+    public TMP_InputField apiKeyInput;
     public GameObject levelCompleteScreen;
     public GameObject stallWarning;
 
+    public GameObject[] menuButtons;
+    
     [Header("References")] 
     public PlaneController planeController;
     
@@ -22,8 +28,20 @@ public class MenuManager : MonoBehaviour {
     public TMP_InputField country;
 
     public TextMeshProUGUI errorText;
-    
+
     public void Update() {
+        if (SceneManager.GetActiveScene().name == "StartScreen") {
+            if (menuButtons.Length != null && menuButtons.Length > 0) {
+                foreach (GameObject button in menuButtons) {
+                    if (OpenWeather.Instance.usingDevKey) return;
+                    
+                    button.GetComponent<Button>().interactable = apiKeyInput.text != "";
+                }   
+            }
+            
+            Startup.Instance.API_KEY = apiKeyInput.text;
+        }
+        
         if (locationSelectionMenuScreen.activeSelf) {
             OpenWeather.Instance.cityName = city.text;
             OpenWeather.Instance.stateName = state.text;

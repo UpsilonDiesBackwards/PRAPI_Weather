@@ -38,6 +38,14 @@ public class PlaneController : MonoBehaviour
 
     private float mouseX, mouseY;
 
+    void OnDrawGizmos() {
+        if (!Startup.Instance.debugMode) return;
+            
+        // Draw debug rays for forward vectors
+        Debug.DrawLine(transform.position, transform.forward * 20f, Color.red);
+        Debug.DrawLine(transform.position, initialForward * 20f, Color.green);
+    }
+    
     private void Awake() {
         menuManager = FindObjectOfType<MenuManager>();
         menuManager.stallWarning.GetComponent<TextMeshProUGUI>().text = "!!! STALLING !!!";
@@ -60,8 +68,9 @@ public class PlaneController : MonoBehaviour
         hasCrashed = false;
     }
 
-    void Update()
-    {
+    void Update() {
+        if (hasCrashed) return;
+        
         // Get mouse input for pitch and yaw
         mouseX = Input.GetAxis("Mouse X");
         mouseY = Input.GetAxis("Mouse Y");

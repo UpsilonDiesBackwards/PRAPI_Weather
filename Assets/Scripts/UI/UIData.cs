@@ -28,8 +28,11 @@ public class UIData : MonoBehaviour
 
         if (OpenWeather.Instance.currentWeather.weather != null && OpenWeather.Instance.currentWeather.weather.Length > 0) {
             
+            Debug.Log(OpenWeather.Instance.currentWeather.weather[0].main);
+            Debug.Log(OpenWeather.Instance.currentWeather.main.temp);
+
             overview.text = OpenWeather.Instance.currentWeather.weather[0].main;
-            temperature.text = OpenWeather.Instance.currentWeather.main.temp.ToString() + "C";
+            temperature.text = OpenWeather.Instance.currentWeather.main.temp.ToString() + "c";
         } else {
             overview.text = "";
             temperature.text = "";

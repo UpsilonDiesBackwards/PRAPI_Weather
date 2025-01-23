@@ -22,6 +22,8 @@ namespace Core {
         private Vector3 force;
         
         void OnDrawGizmos() {
+            if (!Startup.Instance.debugMode) return;
+            
             // Wind direction
             Gizmos.color = Color.green;
             Gizmos.DrawLine(transform.position, transform.position + force);
